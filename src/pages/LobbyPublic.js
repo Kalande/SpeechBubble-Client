@@ -27,7 +27,7 @@ function LobbyPublic (props){
             topic: "MEMES",
             subtopic: "POST YOUR DARKEST MEMES BELOW AND LEST LAUGH",
             maximumAmountOfPeople: 10,
-            onTimeAmountOfPeople: 9,
+            onTimeAmountOfPeople: 7,
             pictureUrl:"https://www.thecoderpedia.com/wp-content/uploads/2020/06/StackOverFlow-Jokes-832x1024.jpg",
             padlockIcon: "fa-unlock",
             status: "JOIN"
@@ -40,7 +40,6 @@ function LobbyPublic (props){
       }, []);
 
     console.log(rooms)
-    console.log(response[0].onTimeAmountOfPeople)
 
     //status - changes between JOIN or FULL according to onTimeAmountOfPeople in the room.
     // padlock open = "fas fa-unlock"
@@ -59,15 +58,21 @@ function LobbyPublic (props){
     // toogle also for the locker picture (padlock opened and padlock closed)
 
     //cloudinary => to upload picture? ou permitir apenas url?
-    
 
-    function handleJoin () {
 
-        const onTimeAmountOfPeople  = response[0].onTimeAmountOfPeople + 1
+    function handleJoin (click) {
+        console.log(click.target.id)
+
+
+        let {onTimeAmountOfPeople, maximumAmountOfPeople} = rooms[click.target.id]
+        console.log(onTimeAmountOfPeople, maximumAmountOfPeople)
+
+        onTimeAmountOfPeople  = onTimeAmountOfPeople + 1
         console.log(onTimeAmountOfPeople)
+        console.log(rooms[click.target.id])
 
         setRooms([
-            [...rooms],
+            {...rooms[click.target.id]},
             onTimeAmountOfPeople
         ]
         )
@@ -77,18 +82,20 @@ function LobbyPublic (props){
 
         const status = "FULL"
         const padlockIcon = "fa-lock" 
-        
-        if(rooms[0].onTimeAmountOfPeople === rooms[0].maximumAmountOfPeople){
-            console.log(rooms[0].onTimeAmountOfPeople, rooms[0].maximumAmountOfPeople)
+
+        //state is not being updated
+        console.log(rooms) 
+        console.log(rooms[click.target.id])
+
+        if(onTimeAmountOfPeople === maximumAmountOfPeople){
+            console.log(onTimeAmountOfPeople, maximumAmountOfPeople)
             setRooms([
-                ...rooms,
+                {...rooms[click.target.id]},
                 status,
                 padlockIcon
-            ]   
-            )
+            ])
         }
     }
-
     console.log(rooms)
 
     return (
@@ -107,7 +114,7 @@ function LobbyPublic (props){
                             <i className={`fas ${eachRoom.padlockIcon} font-size`}></i>
                             <h2 className="font-size"> {`${eachRoom.onTimeAmountOfPeople} / ${eachRoom.maximumAmountOfPeople}`}</h2>
                             <button onClick={handleJoin}>
-                                <h2 className="font-size">{eachRoom.status}</h2>
+                                <h2 className="font-size" id={index}>{eachRoom.status}</h2>
                             </button>
                         </li>
                     )
