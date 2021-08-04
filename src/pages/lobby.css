@@ -1,0 +1,38 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-rooms {
+    align-content: center;
+}
+
+.fa-angle-double-left {
+    text-decoration: none;
+}
+
+.img-room {
+    width: 5%;
+    height:  auto;
+    border-radius: 50px;
+}
+
+.font-size {
+    font-size: xx-small   
+}
+
+.container-li{
+    padding: 10px;
+    margin: 10px;
+    left: 275px;
+    top: 277px;
+    background: #C4C4C4;
+    border-radius: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
