@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./lobby.css";
 
 // HOME => PERSON CHOOSE BETWEEN HOST, PUBLIC OR PRIVATE
-// Acording to user choices => add host OR public OR private as route params
+// Acording to user choices => form => add host OR public OR private as route params
 
 // const { id } = props.match.params
 
@@ -14,8 +14,9 @@ function LobbyPublic (props){
 
     const [rooms, setRooms] = useState([]);
 
-    //response vai vir do get 
-    const response = [{
+    //response is a result of get route. When connecting GET route, delete the obj response below.
+    const response = [
+        {
         topic: "MEMES",
         subtopic: "POST YOUR DARKEST MEMES BELOW AND LEST LAUGH",
         maximumAmountOfPeople: 10,
@@ -61,39 +62,85 @@ function LobbyPublic (props){
 
 
     function handleJoin (click) {
+        //to access array index of specific room 
         console.log(click.target.id)
 
-
-        let {onTimeAmountOfPeople, maximumAmountOfPeople} = rooms[click.target.id]
+        //change property onTimeAmountOfPeople
+        let { onTimeAmountOfPeople, maximumAmountOfPeople } = rooms[click.target.id]
         console.log(onTimeAmountOfPeople, maximumAmountOfPeople)
 
         onTimeAmountOfPeople  = onTimeAmountOfPeople + 1
         console.log(onTimeAmountOfPeople)
         console.log(rooms[click.target.id])
 
-        setRooms([
-            {...rooms[click.target.id]},
-            onTimeAmountOfPeople
-        ]
-        )
+        //To include put route and send the updated information to API (onTimeAmountOfPeople updated) and return the responseUpdated obj
+
+        // To access response object of PUT route above. When the route is included, delete the obj below.
+        const responseUpdated = [
+            {
+            topic: "MEMES",
+            subtopic: "POST YOUR DARKEST MEMES BELOW AND LEST LAUGH",
+            maximumAmountOfPeople: 10,
+            onTimeAmountOfPeople: 9,
+            pictureUrl:"https://www.thecoderpedia.com/wp-content/uploads/2020/06/StackOverFlow-Jokes-832x1024.jpg",
+            padlockIcon: "fa-unlock",
+            status: "JOIN"
+            }, {
+                topic: "MEMES",
+                subtopic: "POST YOUR DARKEST MEMES BELOW AND LEST LAUGH",
+                maximumAmountOfPeople: 10,
+                onTimeAmountOfPeople: 10,
+                pictureUrl:"https://www.thecoderpedia.com/wp-content/uploads/2020/06/StackOverFlow-Jokes-832x1024.jpg",
+                padlockIcon: "fa-unlock",
+                status: "JOIN"
+                }
+            ]
+
+        //Update state of room of Public Lobby with the responseUpdated Obj
+        setRooms([...responseUpdated]);
 
         // route params = rooms.topic => In the backend => Model => topic must be unique  
-        // props.history.push(`/room/${rooms.topic}`);
+        props.history.push(`/room/${rooms.topic}`);
 
         const status = "FULL"
         const padlockIcon = "fa-lock" 
 
-        //state is not being updated
         console.log(rooms) 
         console.log(rooms[click.target.id])
 
+        //to compare if the room is already full, and if so, change padlock and status
         if(onTimeAmountOfPeople === maximumAmountOfPeople){
             console.log(onTimeAmountOfPeople, maximumAmountOfPeople)
+
+        //To include put route and send the updated information to API (status and padlock) and return the newResponseUpdated obj
+
+        // To access response object of PUT route above. When the route is included, delete the obj below.
+        const newResponseUpdated = [
+            {
+            topic: "MEMES",
+            subtopic: "POST YOUR DARKEST MEMES BELOW AND LEST LAUGH",
+            maximumAmountOfPeople: 10,
+            onTimeAmountOfPeople: 9,
+            pictureUrl:"https://www.thecoderpedia.com/wp-content/uploads/2020/06/StackOverFlow-Jokes-832x1024.jpg",
+            padlockIcon: "fa-unlock",
+            status: "JOIN"
+            }, {
+                topic: "MEMES",
+                subtopic: "POST YOUR DARKEST MEMES BELOW AND LEST LAUGH",
+                maximumAmountOfPeople: 10,
+                onTimeAmountOfPeople: 10,
+                pictureUrl:"https://www.thecoderpedia.com/wp-content/uploads/2020/06/StackOverFlow-Jokes-832x1024.jpg",
+                padlockIcon: "fa-lock",
+                status: "FULL"
+                }
+            ]
+
+            //Update state, including new status - FULL and padlock closed => it is not working yet
             setRooms([
-                {...rooms[click.target.id]},
-                status,
-                padlockIcon
+                [...newResponseUpdated],
             ])
+
+            // PENDING => method onclose, to close JOIN Button
         }
     }
     console.log(rooms)
