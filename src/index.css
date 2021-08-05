@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.homePage{
+  display: flex;
+  /* flex-direction: column; */
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: url('https://i.imgur.com/XOZdmys.png');
+  background-repeat: no-repeat;
+  
+  
+}
+
+.homePageOptions > h1 {
+  margin: 1em 0 
+}
+
+.homePageOptions>h1:hover{
+  transform: scale(1.2) ;
+  color: cornflowerblue;
+  transition: all ease-in .07s;
+}

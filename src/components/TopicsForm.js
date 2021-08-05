@@ -6,8 +6,8 @@ function Topics (props){
         <div>
             <form onSubmit={props.handleSubmit}>
                 <SelectInput
-                    label=
-                    id=
+                    label={}
+                    id={}
                     value={props.value}
                     name={props.name}
                     required={props.required}
