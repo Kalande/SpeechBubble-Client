@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -35,9 +35,10 @@ code {
   background-repeat: no-repeat;
 }
 
-.homePageOptions > h1 {
+.homePageOptions > a > h1 {
   padding: 1em 0;
   width: 4em;
+  background-color: cornsilk;
   height: 4em;
   text-align: center;
   align-self: center;
@@ -52,3 +53,44 @@ code {
   color: rgb(252, 138, 63);
   transition: all ease-in .07s;
 }
+
+.topics{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topicsRow-1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.topicsRow-2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25vw;
+}
+
+.topicsRow-1 > a:hover{
+  transform: scale(1.02);
+  transition: ease-in-out all .2s;
+}
+.topicsRow-2 > a:hover{
+  transform: scale(1.02);
+  transition: ease-in-out all .2s;
+}
+
+.topicsRow-1 > a{
+  text-align: center;
+  text-decoration: none;
+  color: black;
+ font-family: 'Amatic SC', cursive;
+}
+.topicsRow-2 > a{
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  font-family: 'Amatic SC', cursive;
+}
+

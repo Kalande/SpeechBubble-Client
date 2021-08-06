@@ -18,7 +18,8 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path='/' component={HomePage} />
-        <Route path='/:option/topics' component={Topics} />
+        <Route exact path="/host/topics" render={(props) => <Topics {...props} />} />
+        <Route exact path="/topics" render={(props) => <Topics {...props} />} />
         <Route path='/:topic/lobbies' component={AllPublicLobbies} />
         <Route path='/room/:name' component={RoomChat} />
         <Route path='/privateRoom/:privateId' component={PrivChat} />
