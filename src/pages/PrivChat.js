@@ -1,47 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import actions from '../api';
-import axios from 'axios'
 
-
-function RoomChat(props){
-const [user, setUser] = useState(props.location.state.user)
+function PrivChat(props){
 const [users, setUsers]=useState([])
 const [allMessages, setAllMessages]=useState([])
 const [currentMessage, setCurrentMessage]=useState('')
 const [roomId, setRoomId] = useState('')
-const [topic, setTopic] = useState('')
-let messagesEnd = React.useRef()
+let messageEnd = React.createRef()
 
-let scrollIntoView = () => {
-    messagesEnd.current.scrollIntoView({behaviour: 'smooth'})
+let scrollToBottom = () => {
+    messageEnd.scrollIntoView({behaviour: 'smooth'})
 }
+const user = props.location.state.user 
 const {socket} = actions
-const {name} = props.match.params
-
-
+const {privateId} = props.match.params
 useEffect(() => {
    let getData = async () => {
     try{
-        let users = await actions.getLobby(name)
+        let users = await actions.getPrivateLobby(privateId)
         await setRoomId(users.data._id)
-        setTopic(users.data.topic)
         await setUsers(users.data.users)
-        let response = await actions.allMessages(users.data._id) 
+        let response = await actions.allMessages(roomId) 
         await setAllMessages(response.data)
-        scrollIntoView()     
+        scrollToBottom()     
     } catch(error){
         console.log(error)
     }
    } 
    getData() 
-   socket.emit('joinChat', roomId)
-}, [])
-    
-
+    socket.emit('joinChat', roomId)
     socket.on('receiveMessage', async (data) => {
     await setAllMessages([...allMessages, data])
-    scrollIntoView()
+    scrollToBottom()
     })
+}, [])
+
 let handleMessageInput = (e) => {
     setCurrentMessage(e.target.value)
 }
@@ -68,17 +61,7 @@ let sendMessage = async () => {
     await socket.emit("sendMessage", messageContent);
     await setAllMessages([...allMessages, messageContent.content])
     await setCurrentMessage('')
-    scrollIntoView()
-}
-
-let handleLeave = async () => {
-    props.history.push(`/lobbies/${topic}`)
-    await actions.userLeavesRoom(roomId)
-    
-}
-
-if(!allMessages){
-    return <p>loading</p>
+    scrollToBottom()
 }
 
 
@@ -86,8 +69,9 @@ return (
         <>
             {
             allMessages.map((val,i) => {
+                console.log(val)
                 return (
-                    <div key={i} className={`messageContainer ${val.sender.username === user.username ? "you" : "other"}`} 
+                    <div key={i} className={`messageContainer ${val.sender.username === user.username ?"you" : "other"}`} 
                     >
                             <span className="sender"> {val.sender.username}</span>
                             <div className="msg">
@@ -99,19 +83,18 @@ return (
             }) 
             }
             <div style={{ float:"left", clear: "both" }}
-            ref={messagesEnd}>
-           </div>
-           <div className="messageInputs">
+            ref={(el) => {messageEnd = el}}>
+        </div>
+        <div className="messageInputs">
             <form onSubmit = {onSendMessage} noValidate>
                 <input value={currentMessage} type="text" placeholder="Message..."
                     onChange={handleMessageInput}
                 />
                 <button onClick={sendMessage}>Send</button>
             </form>
-            <button onClick={handleLeave}>Leave</button>
-           </div>
+        </div>
         </>
     )
 }
 
-export default RoomChat
+export default PrivChat

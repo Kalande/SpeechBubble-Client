@@ -1,24 +1,30 @@
 import axios  from "axios";
+import io from 'socket.io-client'
 
-const serverUrl =process.env.NODE_ENV === 'production' ? '' : `http://localhost:5005/api/`
+
+const serverUrl = process.env.NODE_ENV === 'production' ? '' : `http://localhost:5005`
 
 const actions = {
+
+    socket: io(`${serverUrl}`),
+
+    newUser: async user => await axios.post(`${serverUrl}/api/newUser`, user, {withCredentials: true}),
     
-    newUser: async user => await axios.post(`${serverUrl}/newUser`, user),
-    
-    newLobby: async lobby => await axios.post(`${serverUrl}/newLobby`, lobby),
+    newLobby: async lobby => await axios.post(`${serverUrl}/api/newLobby`, lobby, {withCredentials: true}),
 
-    getLobby: async name => await axios.get(`${serverUrl}/lobby/${name}`),
+    getLobby: async name => await axios.get(`${serverUrl}/api/lobby/${name}`, {withCredentials: true}),
 
-    getAllLobbies: async () => await axios.get(`${serverUrl}/allLobbies`),
+    getAllLobbies: async topic => await axios.post(`${serverUrl}/api/allLobbies`, {topic},{withCredentials: true}),
 
-    getPrivateLobby: async roomId => await axios.post(`${serverUrl}/privateLobby`), /* NEED TO MAKE SERVER ROUTE*/
+    getPrivateLobby: async privateId => await axios.post(`${serverUrl}/api/privateLobby`, privateId ,{withCredentials: true}), /* NEED TO MAKE SERVER ROUTE*/
 
-    userJoinedRoom: async user => await axios.post(`${serverUrl}/userJoinedRoom`, user),
+    userJoinedRoom: async roomId => await axios.post(`${serverUrl}/api/userJoinedRoom`, {roomId}, {withCredentials: true}),
 
-    userLeavesRoom: async user => await axios.post(`${serverUrl}/userLeavesRoom`, user),
+    userLeavesRoom: async roomId => await axios.post(`${serverUrl}/api/userLeavesRoom`, {roomId}, {withCredentials: true}),
 
-    newHost: async host => await axios.post(`${serverUrl}/newHost`, host)
+    newHost: async host => await axios.post(`${serverUrl}/api/newHost`, host, {withCredentials: true}),
+
+    allMessages: async roomId => await axios.get(`${serverUrl}/api/allLobbyMessages/${roomId}`, {withCredentials: true})
 
 }
 export default actions;
