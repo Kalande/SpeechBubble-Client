@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import actions from '../api';
-import axios from 'axios'
 
-
-function RoomChat({user, match}){
+function PrivChat(props){
 const [users, setUsers]=useState([])
 const [allMessages, setAllMessages]=useState([])
 const [currentMessage, setCurrentMessage]=useState('')
@@ -13,14 +11,13 @@ let messageEnd = React.createRef()
 let scrollToBottom = () => {
     messageEnd.scrollIntoView({behaviour: 'smooth'})
 }
+const user = props.location.state.user 
 const {socket} = actions
-const {name} = match.params
-
-
+const {privateId} = props.match.params
 useEffect(() => {
    let getData = async () => {
     try{
-        let users = await actions.getLobby(name)
+        let users = await actions.getPrivateLobby(privateId)
         await setRoomId(users.data._id)
         await setUsers(users.data.users)
         let response = await actions.allMessages(roomId) 
@@ -55,7 +52,7 @@ let sendMessage = async () => {
     let messageContent = {
         roomId: roomId,
         content: {
-            sender: this.props.user,
+            sender: user,
             message: currentMessage,
             
         },
@@ -100,4 +97,4 @@ return (
     )
 }
 
-export default RoomChat
+export default PrivChat

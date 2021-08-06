@@ -1,4 +1,4 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import sports from "../components/img/themes_sports.svg"
 import others from "../components/img/themes_others.svg"
@@ -10,21 +10,21 @@ import "./topics.css";
 
 function Topics (props){
 
-    const { id } = props.match.params
-
+    const id = props.match.params.id
+    console.log(id);
     return (
         <div className="container">
             <h1 className="m-4">Pick Your Topic</h1>
             <div className="d-flex justify-content-center">
                 <div className="flex-column mb-2 ms-5">
-                    <Link className="p-1" to={`/${id}Form`}>     
+                    <Link to={`/sports/Hostform`}>     
                     {/* DIRECTS TO HOST OR PUBLIC OR PRIVATE FORM  */}
                         <img src={sports} alt="sports balls" />
                     </Link>
                     <p className="p-1">Sports</p>
                 </div>
                 <div className="flex-column mb-2 me-5">
-                    <Link className="p-1" to={`/${id}Form`}>     
+                <Link to={`/host/topics/Shows&Movies`}>     
                         {/* DIRECTS TO HOST OR PUBLIC OR PRIVATE FORM  */}
                         <img src={tobereplaced} alt="TO UPDATE" />
                     </Link>
@@ -33,7 +33,7 @@ function Topics (props){
             </div>
             <div className="d-flex justify-content-center">
                 <div className="flex-column mb-2 ms-5">
-                    <Link className="p-1" to={`/${id}Form`}>     
+                <Link to={`/host/topics/Trending`}>     
                         {/* DIRECTS TO HOST OR PUBLIC OR PRIVATE FORM  */}
                         <img src={tobereplaced} alt="TO UPDATE" />
                     </Link>

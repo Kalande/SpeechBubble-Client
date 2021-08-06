@@ -1,64 +1,47 @@
 import TextInput from "./props.form/TextInput";
 import SelectInput from "./props.form/SelectInput";
+import {useEffect, useState} from 'react'
+import actions from '../api'
 
 function HostForm(props) {
+  const [lobby, setLobby]= useState({})
+  const handleLobbyChange = e => {
+      let newLobby = {...lobby}
+      newLobby[e.target.name]= e.target.value
+      setLobby(newLobby)
+      console.log(newLobby);
+  }
+
+  const handleLobbySubmit = async e =>{
+      e.preventDefault()
+      let res = await actions.newLobby(lobby)
+      console.log(lobby);
+  }
+
   return (
-    <form onSubmit={props.handleSubmit}>
-      <div style={{ fontSize: 16 }}>
-        <strong>
-          <TextInput
-            label="Room Name"
-            type="text"
-            name="room"
-            id="room"
-            value={props.state.room}
-            onChange={props.handleChange}
-          />
+    <form onSubmit={handleLobbySubmit}>
+    <h3>New Lobby</h3>
+     <h5>Topic</h5>
+     <input type='text' onChange={handleLobbyChange} name='topic'/>
+     <h5>subject</h5>
+     <input type='text' onChange={handleLobbyChange} name='subject'/>
+     <h5>name</h5>
+     <input type='text' onChange={handleLobbyChange} name='name'/>
+     <h5>Limit</h5>
+     <input type='text' onChange={handleLobbyChange} name='limit'/>
+     <h5>question</h5>
+     <input type='text' onChange={handleLobbyChange} name='question'/>
+     <h5>Answer</h5>
+     <input type='text' onChange={handleLobbyChange} name='answer'/>
+     <h5>Private?</h5>
+     <select onChange={handleLobbyChange} name='private'>
+         <option value={true}>Yes</option>
+         <option value={false}>No</option>
+     </select>
+     <br></br>
+     <button type="submit">Create Lobby</button>
+</form>
+  )
 
-          <TextInput
-            label="Subject"
-            type="text"
-            name="subject"
-            id="subject"
-            value={props.state.subject}
-            onChange={props.handleChange}
-          />
-
-          <SelectInput
-            label="Users Limit"
-            type="text"
-            name="limit"
-            id="limit"
-            value={props.state.limit}
-            onChange={props.handleChange}
-            items={["5", "10", "20"]}
-          />
-
-          <SelectInput
-            label="Public or Private?"
-            type="text"
-            name="publicOrPrivate"
-            id="publicOrPrivate"
-            value={props.state.publicOrPrivate}
-            onChange={props.handleChange}
-            items={["Public", "Private"]}
-          />
-        </strong>
-      </div>
-      {props.error ? (
-        <div className="alert alert-danger">{props.error}</div>
-      ) : null}
-
-      <div className="form-group">
-        <button
-          className="btn text-white"
-          style={{ backgroundColor: "#FF7600" }}
-          type="submit"
-        >
-          Create
-        </button>
-      </div>
-    </form>
-  );
 }
 export default HostForm;

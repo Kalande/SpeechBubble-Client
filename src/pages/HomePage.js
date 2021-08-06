@@ -1,51 +1,65 @@
 import {useEffect, useState} from 'react';
 import actions from '../api'
+import {Link} from 'react-router-dom';
 
 function HomePage(props) {
-    const [lobby, setLobby]= useState({})
-    const handleLobbyChange = e => {
-        let newLobby = {...lobby}
-        newLobby[e.target.name]= e.target.value
-        setLobby(newLobby)
-        console.log(newLobby);
-    }
-
-    const handleLobbySubmit = async e =>{
-        e.preventDefault()
-        let res = await actions.newLobby(lobby)
-        console.log(lobby);
-    }
 
  //App.js?
     const [user, setUser]=useState({})
 
     const handleUserChange = e => {
         let newUser = {...user}
-        newUser[e.target.name]= e.target.value
+        newUser[e.target.name] = e.target.value
         setUser(newUser)
-        console.log(newUser);
     }
-
+console.log(user);
     const handleUserSubmit = async e =>{
         e.preventDefault()
-        let res = await actions.newLobby(user)
+        let res = await actions.newUser(user)
         console.log(user);
     }
 
-  
+  console.log(props.match.params);
 
     
-    const [open, setOpen]=useState({})
+    const [openHost, setOpenHost]=useState(false)
+    const [openPublic, setOpenPublic]=useState(false)
+    const [openPrivate, setOpenPrivate]=useState(false)
+    
     return (
         <div className='homePage'>
-           {/* <div className='homePageOptions'>
-               <h1>Host</h1>
-               <h1>Public</h1>
-               <h1>Private</h1>
+           <div className='homePageOptions'>
+               <Link to={`${{}}/topics`}>
+                   <h1 onMouseOver={()=> setOpenHost(!openHost)} onMouseLeave={()=> setOpenHost(false)}>
+                       Host
+                   </h1>
+                   {openHost && (
+                       <h3>Host a Public or Private Room</h3>
+                   )}
+                   
+               </Link>
+               
+               <Link to='/topics/Public'>
+                   <h1 onMouseOver={()=> setOpenPublic(!openPublic)} onMouseLeave={()=> setOpenPublic(false)}>
+                      Public
+                   </h1>
+                   {openPublic && (
+                       <h3>Join a Public Room</h3>
+                   )}
+               </Link>
+               
+               <Link to='/topics/Public'>
+               <h1 onMouseOver={()=> setOpenPrivate(!openPrivate)} onMouseLeave={()=> setOpenPrivate(false)}>
+                   Private
+               </h1>
+               {openPrivate && (
+                   <h3>Host a Public or Private Lobby</h3>
+               )}
+               </Link>
            </div>
-           <
-      */}
-           <form onSubmit={handleUserSubmit} className='userForm'>
+           
+     
+           {/* <form onSubmit={handleUserSubmit} className='userForm'>
                <h3>User</h3>
                <h5>username</h5>
                <input onChange={handleUserChange} type='text' name='username'/>
@@ -54,30 +68,10 @@ function HomePage(props) {
                <h5>image</h5>
                <input onChange={handleUserChange} type='file' name='image'/>
                <br></br>
-               <input type='submit'/>
+               <button>Create User</button>
 
-           </form>
-           <form onSubmit={handleLobbySubmit}>
-               <h3>New Lobby</h3>
-                <h5>Topic</h5>
-                <input type='text' onChange={handleLobbyChange} name='topic'/>
-                <h5>subject</h5>
-                <input type='text' onChange={handleLobbyChange} name='subject'/>
-                <h5>name</h5>
-                <input type='text' onChange={handleLobbyChange} name='name'/>
-                <h5>Limit</h5>
-                <input type='text' onChange={handleLobbyChange} name='limit'/>
-                <h5>question</h5>
-                <input type='text' onChange={handleLobbyChange} name='question'/>
-                <h5>Answer</h5>
-                <input type='text' onChange={handleLobbyChange} name='answer'/>
-                <h5>Private?</h5>
-                <input type='text' onChange={handleLobbyChange} name='private'/>
-                <h5>Host</h5>
-                <input type='text' onChange={handleLobbyChange} name='host'/>
-                <br></br>
-                <button>Create Lobby</button>
-           </form>
+           </form> */}
+          
         </div>
     );
 }

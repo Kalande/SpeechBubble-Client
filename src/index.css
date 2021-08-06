@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,23 +16,39 @@ code {
 
 
 .homePage{
+  font-family: 'Indie Flower', cursive;  
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url('https://i.imgur.com/XOZdmys.png');
+  background: url('https://compai.pub/v1/png/096270fda2f6917a288700bc0cbfe672414b6292d417700bc4aea1a37c82089e');
   background-repeat: no-repeat;
   
   
 }
+.homePageOptions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 .homePageOptions > h1 {
-  margin: 1em 0 
+  padding: 1em 0;
+  width: 4em;
+  height: 4em;
+  text-align: center;
+  align-self: center;
+  background: url('https://findicons.com/files/icons/2770/ios_7_icons/512/speech_bubble.png');
+  background-size: 4em;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .homePageOptions>h1:hover{
   transform: scale(1.2) ;
-  color: cornflowerblue;
+  color: rgb(252, 138, 63);
   transition: all ease-in .07s;
 }
