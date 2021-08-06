@@ -34,7 +34,7 @@ function AllPublicLobbies (props) {
         
     if(room.users.length !== room.limit){
             props.history.push({
-                pathname: `/lobby/${room.name}/user`,
+                pathname: `/lobby/${room._id}/user`,
                 state: {roomId: room._id}
             });
             setUserJoin(!userJoin)

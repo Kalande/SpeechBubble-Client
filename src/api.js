@@ -12,7 +12,7 @@ const actions = {
     
     newLobby: async lobby => await axios.post(`${serverUrl}/api/newLobby`, lobby, {withCredentials: true}),
 
-    getLobby: async name => await axios.get(`${serverUrl}/api/lobby/${name}`, {withCredentials: true}),
+    getLobby: async id => await axios.get(`${serverUrl}/api/lobby/${id}`, {withCredentials: true}),
 
     getAllLobbies: async topic => await axios.post(`${serverUrl}/api/allLobbies`, {topic},{withCredentials: true}),
 

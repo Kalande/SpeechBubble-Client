@@ -29,11 +29,12 @@ useEffect(() => {
    } 
    getData() 
     socket.emit('joinChat', roomId)
-    socket.on('receiveMessage', async (data) => {
-    await setAllMessages([...allMessages, data])
-    scrollToBottom()
-    })
 }, [])
+
+socket.on('receiveMessage', async (data) => {
+await setAllMessages([...allMessages, data])
+scrollToBottom()
+})
 
 let handleMessageInput = (e) => {
     setCurrentMessage(e.target.value)

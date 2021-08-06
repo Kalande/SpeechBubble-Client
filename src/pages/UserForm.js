@@ -18,7 +18,7 @@ const handleUserSubmit = async e =>{
         await actions.userJoinedRoom(props.location.state.roomId)
     }
     props.history.push({
-        pathname: window.location.pathname !== `/create/:topic`? `/lobby/${props.match.params.name}` : `/create/${props.match.params.topic}/hostForm`,
+        pathname: !window.location.pathname.includes('/create/') ? `/lobby/${props.match.params.id}` : `/create/${props.match.params.topic}/hostForm`,
         state: {user: res.data}
     })
 }

@@ -19,7 +19,7 @@ function HostForm(props) {
         }
         let res = await actions.newLobby(lobby)
       props.history.push({
-        pathname: `/lobby/${res.data.name}`,
+        pathname: `/lobby/${res.data._id}`,
         state: { user: props.location.state.user}
       })
       } catch (error){

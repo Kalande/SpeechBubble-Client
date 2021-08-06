@@ -22,8 +22,8 @@ function App() {
         <Route exact path="/host/topics" render={(props) => <HostTopics {...props} />} />
         <Route exact path="/topics" render={(props) => <Topics {...props} />} />
         <Route path='/lobbies/:topic' component={AllPublicLobbies} />
-        <Route exact path='/lobby/:name' component={RoomChat} />
-        <Route path="/lobby/:name/user" render={(props) => <UserForm {...props} />} />
+        <Route exact path='/lobby/:id' component={RoomChat} />
+        <Route path="/lobby/:id/user" render={(props) => <UserForm {...props} />} />
         <Route path='/privateRoom/:privateId' component={PrivChat} />
         <Route exact path="/create/:topic" render={(props) => <UserForm {...props} />} />
         <Route path='/create/:topic/hostForm' component={HostForm} />

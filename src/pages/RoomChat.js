@@ -16,13 +16,14 @@ let scrollIntoView = () => {
     messagesEnd.current.scrollIntoView({behaviour: 'smooth'})
 }
 const {socket} = actions
-const {name} = props.match.params
+let id = props.match.params.id
+
 
 
 useEffect(() => {
    let getData = async () => {
     try{
-        let users = await actions.getLobby(name)
+        let users = await actions.getLobby(id)
         await setRoomId(users.data._id)
         setTopic(users.data.topic)
         await setUsers(users.data.users)
@@ -34,8 +35,9 @@ useEffect(() => {
     }
    } 
    getData() 
-   socket.emit('joinChat', roomId)
 }, [])
+
+socket.emit('joinChat', roomId)
     
 
     socket.on('receiveMessage', async (data) => {
