@@ -38,8 +38,6 @@ useEffect(() => {
 }, [])
 
 socket.emit('joinChat', roomId)
-    
-
     socket.on('receiveMessage', async (data) => {
     await setAllMessages([...allMessages, data])
     scrollIntoView()

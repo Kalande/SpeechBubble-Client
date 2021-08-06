@@ -2,7 +2,7 @@ import axios  from "axios";
 import io from 'socket.io-client'
 
 
-const serverUrl = process.env.NODE_ENV === 'production' ? '' : `http://localhost:5005`
+const serverUrl = process.env.REACT_APP_SERVER_URL
 
 const actions = {
 
